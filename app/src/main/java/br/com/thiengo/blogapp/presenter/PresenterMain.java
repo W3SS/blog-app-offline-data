@@ -32,7 +32,7 @@ public class PresenterMain implements PresenterImpl {
         return instance;
     }
 
-
+    @Override
     public void setView( ViewImpl view ){
         this.view = view;
     }
@@ -44,26 +44,30 @@ public class PresenterMain implements PresenterImpl {
 
     public void retrievePosts(Bundle savedInstanceState) {
         if( savedInstanceState != null ){
-            posts = savedInstanceState.getParcelableArrayList( ViewImpl.POSTS_KEY );
+            posts = savedInstanceState.getParcelableArrayList( Post.POSTS_KEY );
             return;
         }
         model.retrievePosts();
     }
 
+    @Override
     public void updateEhFavoritoPost(Post post) {
         post.setEhFavorito( !post.isEhFavorito() );
         model.updateEhFavoritoPost( post );
     }
 
+    @Override
     public void showToast(String mensagem) {
         view.showToast( mensagem );
     }
 
+    @Override
     public void showProgressBar(boolean status) {
         int visibilidade = status ? View.VISIBLE : View.GONE;
         view.showProgressBar( visibilidade );
     }
 
+    @Override
     public void updateListaRecycler(Object object) {
         List<Post> postsCarregados = (List<Post>) object;
         posts.clear();
@@ -71,6 +75,7 @@ public class PresenterMain implements PresenterImpl {
         view.updateListaRecycler();
     }
 
+    @Override
     public void updateItemRecycler(Post p) {
         if( p == null ){
             return;
@@ -86,6 +91,11 @@ public class PresenterMain implements PresenterImpl {
         }
     }
 
+    @Override
+    public void enviarComentario( Post post ){
+        throw new UnsupportedOperationException();
+    }
+
     public void itemClicado( long viewId, Post post ){
         if( viewId == R.id.iv_favorito ){
             updateEhFavoritoPost(post);
@@ -95,10 +105,6 @@ public class PresenterMain implements PresenterImpl {
             intent.putExtra( Post.KEY, post );
             getContext().startActivityForResult( intent, Post.POST_CODE );
         }
-    }
-
-    public void enviarComentario( Post post ){
-        throw new UnsupportedOperationException();
     }
 
     public ArrayList<Post> getPosts() {

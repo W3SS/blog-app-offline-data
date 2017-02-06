@@ -4,9 +4,6 @@ import android.content.Context;
 
 import br.com.thiengo.blogapp.view.ViewImpl;
 
-/**
- * Created by viniciusthiengo on 05/02/17.
- */
 
 public interface PresenterImpl {
     public void setView( ViewImpl view );

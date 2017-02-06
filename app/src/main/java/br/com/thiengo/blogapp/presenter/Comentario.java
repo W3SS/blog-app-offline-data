@@ -9,6 +9,7 @@ import android.os.Parcelable;
 
 public class Comentario implements Parcelable {
     public static final String MENSAGEM_KEY = "comentario";
+    public static final String COMENTARIOS_KEY = "comentarios";
 
     private long id;
     private User user;

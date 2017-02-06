@@ -36,43 +36,28 @@ public class PresenterPost implements PresenterImpl {
         return instance;
     }
 
-
+    @Override
     public void setView( ViewImpl view ){
         this.view = view;
     }
 
+    @Override
     public Context getContext() {
         return (Context) view;
     }
 
-    public void retrieveComentarios( Post post, Bundle savedInstanceState) {
-        if( savedInstanceState != null ){
-            comentarios = savedInstanceState.getParcelableArrayList( ViewImpl.COMENTARIOS_KEY );
-            return;
-        }
-        comentarios = post.getComentarios();
-    }
-
+    @Override
     public void updateEhFavoritoPost(Post post) {
         post.setEhFavorito( !post.isEhFavorito() );
         model.updateEhFavoritoPost( post );
     }
 
-    public void insertComentario(Post post, String nome, String mensagem){
-        User user = new User();
-        user.setNome( nome );
-
-        Comentario comentario = new Comentario();
-        comentario.setMensagem( mensagem );
-        comentario.setUser( user );
-
-        model.insertComentario( post, comentario );
-    }
-
+    @Override
     public void showToast(String mensagem) {
         view.showToast( mensagem );
     }
 
+    @Override
     public void showProgressBar(boolean status) {
         int visibilidade = status ? View.VISIBLE : View.GONE;
         view.showProgressBar( visibilidade );
@@ -90,6 +75,7 @@ public class PresenterPost implements PresenterImpl {
         view.updateListaRecycler();
     }
 
+    @Override
     public void enviarComentario( Post post ){
         FragmentManager fragManager = ((AppCompatActivity) getContext())
                 .getSupportFragmentManager();
@@ -109,7 +95,26 @@ public class PresenterPost implements PresenterImpl {
         dialog.show(ft, ComentarioFragment.KEY);
     }
 
+    public void retrieveComentarios( Post post, Bundle savedInstanceState) {
+        if( savedInstanceState != null ){
+            comentarios = savedInstanceState.getParcelableArrayList( Comentario.COMENTARIOS_KEY );
+            return;
+        }
+        comentarios = post.getComentarios();
+    }
+
     public ArrayList<Comentario> getComentarios() {
         return (ArrayList<Comentario>) comentarios;
+    }
+
+    public void insertComentario(Post post, String nome, String mensagem){
+        User user = new User();
+        user.setNome( nome );
+
+        Comentario comentario = new Comentario();
+        comentario.setMensagem( mensagem );
+        comentario.setUser( user );
+
+        model.insertComentario( post, comentario );
     }
 }

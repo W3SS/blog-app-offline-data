@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(POSTS_KEY, presenter.getPosts());
+        outState.putParcelableArrayList(Post.POSTS_KEY, presenter.getPosts());
         super.onSaveInstanceState(outState);
     }
 
@@ -67,18 +67,22 @@ public class MainActivity extends AppCompatActivity
         presenter.updateEhFavoritoPost( post );
     }
 
+    @Override
     public void updateListaRecycler(){
         adapter.notifyDataSetChanged();
     }
 
+    @Override
     public void updateItemRecycler( int posicao ){
         adapter.notifyItemChanged( posicao );
     }
 
+    @Override
     public void showToast( String mensagem ){
         Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
     public void showProgressBar( int visibilidade ){
         findViewById(R.id.pb_loading).setVisibility( visibilidade );
     }

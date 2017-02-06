@@ -12,11 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import br.com.thiengo.blogapp.R;
+import br.com.thiengo.blogapp.presenter.Comentario;
 import br.com.thiengo.blogapp.presenter.Post;
 import br.com.thiengo.blogapp.presenter.PresenterPost;
 
@@ -50,7 +50,10 @@ public class PostActivity extends AppCompatActivity
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(COMENTARIOS_KEY, presenter.getComentarios());
+        outState.putParcelableArrayList(
+                Comentario.COMENTARIOS_KEY,
+                presenter.getComentarios() );
+
         super.onSaveInstanceState(outState);
     }
 
@@ -101,17 +104,9 @@ public class PostActivity extends AppCompatActivity
     }
 
     @Override
-    public void showToast(String mensagem) {
-        Toast.makeText(this, mensagem, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void updateEhFavoritoPost(Post post) {
         presenter.updateEhFavoritoPost(post);
     }
-
-    @Override
-    public void showProgressBar(int visibilidade) {}
 
     @Override
     public void updateListaRecycler() {
@@ -122,6 +117,12 @@ public class PostActivity extends AppCompatActivity
     public void updateItemRecycler(int posicao) {
         fab.setImageResource( post.getEhFavoritoIconeBig() );
     }
+
+    @Override
+    public void showToast(String mensagem) {}
+
+    @Override
+    public void showProgressBar(int visibilidade) {}
 
     @Override
     public void onBackPressed() {

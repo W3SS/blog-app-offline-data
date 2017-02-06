@@ -18,6 +18,9 @@ import cz.msebera.android.httpclient.Header;
 public class JsonHttpRequest extends JsonHttpResponseHandler {
     public static final String URI = "http://192.168.25.221:8888/blog-app/ctrl/CtrlPost.php";
     public static final String METODO_KEY = "metodo";
+    public static final String METODO_POSTS = "get-posts";
+    public static final String METODO_UPDATE_FAVORITO = "update-favorito-post";
+    public static final String METODO_NOVO_COMENTARIO = "novo-comentario-post";
 
     private PresenterImpl presenter;
 
@@ -48,7 +51,7 @@ public class JsonHttpRequest extends JsonHttpResponseHandler {
     private boolean ehPostFavoritoUpdate(Header[] headers){
         for( Header h : headers ){
             if( h.getName().equalsIgnoreCase("X-Blog-App")
-                    && h.getName().equalsIgnoreCase("update-favorito-post") ){
+                    && h.getValue().equalsIgnoreCase(METODO_UPDATE_FAVORITO) ){
                 return true;
             }
         }

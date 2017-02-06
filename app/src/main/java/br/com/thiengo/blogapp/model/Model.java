@@ -18,7 +18,10 @@ public class Model {
     }
 
     public void retrievePosts() {
-        RequestParams requestParams = new RequestParams(JsonHttpRequest.METODO_KEY, "get-posts");
+        RequestParams requestParams = new RequestParams(
+                JsonHttpRequest.METODO_KEY,
+                JsonHttpRequest.METODO_POSTS);
+
         asyncHttpClient.post( presenter.getContext(),
                 JsonHttpRequest.URI,
                 requestParams,
@@ -27,7 +30,7 @@ public class Model {
 
     public void updateEhFavoritoPost(Post post) {
         RequestParams requestParams = new RequestParams();
-        requestParams.put( JsonHttpRequest.METODO_KEY, "update-favorito-post" );
+        requestParams.put( JsonHttpRequest.METODO_KEY, JsonHttpRequest.METODO_UPDATE_FAVORITO );
         requestParams.put( Post.ID_KEY, post.getId() );
         requestParams.put( Post.EH_FAVORITO_KEY, post.isEhFavorito() );
 
@@ -39,7 +42,7 @@ public class Model {
 
     public void insertComentario(Post post, Comentario comentario) {
         RequestParams requestParams = new RequestParams();
-        requestParams.put( JsonHttpRequest.METODO_KEY, "novo-comentario-post" );
+        requestParams.put( JsonHttpRequest.METODO_KEY, JsonHttpRequest.METODO_NOVO_COMENTARIO );
         requestParams.put( Post.ID_KEY, post.getId() );
         requestParams.put( Comentario.MENSAGEM_KEY, comentario.getMensagem() );
         requestParams.put( User.NOME_KEY, comentario.getUser().getNome() );

@@ -11,6 +11,7 @@ import br.com.thiengo.blogapp.R;
 
 public class Post implements Parcelable {
     public static final String KEY = "post_key";
+    public static final String POSTS_KEY = "posts";
     public static final String ID_KEY = "id";
     public static final String EH_FAVORITO_KEY = "eh-favorito";
     public static final int POST_CODE = 668;
