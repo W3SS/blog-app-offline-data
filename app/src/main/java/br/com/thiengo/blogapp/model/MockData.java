@@ -106,7 +106,7 @@ public class MockData {
 
         for( int i = 0; i < qtdComentarios; i++ ){
             posicao = getPosicaoCorreta( i, imagens.length, 0 );
-            p.getComentarios().add( criarComentario( posicao, i + 1 ) );
+            //p.getComentarios().add( criarComentario( posicao, i + 1 ) );
         }
 
         return p;

@@ -10,10 +10,14 @@ import br.com.thiengo.blogapp.presenter.User;
 
 
 public class Model {
-    private AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
+    private AsyncHttpClient asyncHttpClient;
     private PresenterImpl presenter;
 
     public Model(PresenterImpl presenter ){
+        asyncHttpClient = new AsyncHttpClient();
+        //asyncHttpClient.setTimeout(5000);
+        asyncHttpClient.setMaxRetriesAndTimeout(0, 5000);
+
         this.presenter = presenter;
     }
 
@@ -38,6 +42,17 @@ public class Model {
                 JsonHttpRequest.URI,
                 requestParams,
                 new JsonHttpRequest( presenter ));
+    }
+
+    public void retrieveComentarios( Post post ) {
+        RequestParams requestParams = new RequestParams();
+        requestParams.put( JsonHttpRequest.METODO_KEY, JsonHttpRequest.METODO_COMENTARIOS );
+        requestParams.put( Post.ID_KEY, post.getId() );
+
+        asyncHttpClient.post( presenter.getContext(),
+                JsonHttpRequest.URI,
+                requestParams,
+                new JsonHttpRequest( presenter, post ));
     }
 
     public void insertComentario(Post post, Comentario comentario) {

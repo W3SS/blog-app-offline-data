@@ -5,13 +5,23 @@
   "entities": [
     {
       "id": 1,
-      "lastPropertyId": 1,
+      "lastPropertyId": 3,
       "name": "User",
       "properties": [
         {
           "id": 1,
           "name": "id",
           "refId": 2725815151038404108
+        },
+        {
+          "id": 2,
+          "name": "name",
+          "refId": 4584823776974528336
+        },
+        {
+          "id": 3,
+          "name": "idade",
+          "refId": 6602008423843761393
         }
       ],
       "refId": 8472871129896305008

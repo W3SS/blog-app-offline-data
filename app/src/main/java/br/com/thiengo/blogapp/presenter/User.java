@@ -3,13 +3,14 @@ package br.com.thiengo.blogapp.presenter;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by viniciusthiengo on 04/02/17.
- */
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-public class User implements Parcelable {
+
+public class User extends RealmObject implements Parcelable {
     public static final String NOME_KEY = "nome";
 
+    @PrimaryKey
     private long id;
     private String nome;
     private String uriImagem;
@@ -51,8 +52,7 @@ public class User implements Parcelable {
         dest.writeString(this.uriImagem);
     }
 
-    public User() {
-    }
+    public User() {}
 
     protected User(Parcel in) {
         this.id = in.readLong();
@@ -71,4 +71,13 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+
+    public User gerarCopia(){
+        User u = new User();
+        u.setId( id );
+        u.setNome( nome );
+        u.setUriImagem( uriImagem );
+        return u;
+    }
 }

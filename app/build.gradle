@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.objectbox'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -28,7 +28,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.1'
     testCompile 'junit:junit:4.12'
-    compile 'io.objectbox:objectbox-android:0.9.6'
     compile 'com.android.support:design:25.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.mikhaellopez:circularimageview:3.0.2'

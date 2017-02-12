@@ -70,8 +70,15 @@ public class PresenterPost implements PresenterImpl {
 
     @Override
     public void updateListaRecycler(Object object) {
-        Comentario c = (Comentario) object;
-        comentarios.add( 0, c );
+        if( object instanceof Comentario ){
+            Comentario c = (Comentario) object;
+            comentarios.add( 0, c );
+        }
+        else{
+            List<Comentario> comentsCarregados = (List<Comentario>) object;
+            comentarios.clear();
+            comentarios.addAll( comentsCarregados );
+        }
         view.updateListaRecycler();
     }
 
@@ -100,7 +107,7 @@ public class PresenterPost implements PresenterImpl {
             comentarios = savedInstanceState.getParcelableArrayList( Comentario.COMENTARIOS_KEY );
             return;
         }
-        comentarios = post.getComentarios();
+        model.retrieveComentarios( post );
     }
 
     public ArrayList<Comentario> getComentarios() {

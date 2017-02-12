@@ -73,6 +73,7 @@ public class PresenterMain implements PresenterImpl {
         posts.clear();
         posts.addAll( postsCarregados );
         view.updateListaRecycler();
+        showProgressBar( !(posts.size() > 0) );
     }
 
     @Override
@@ -84,7 +85,6 @@ public class PresenterMain implements PresenterImpl {
         for(int i = 0; i < posts.size(); i++ ){
             if( posts.get(i).getId() == p.getId() ){
                 posts.get(i).setEhFavorito( p.isEhFavorito() );
-                posts.get(i).setComentarios( p.getComentarios() );
                 view.updateItemRecycler( i );
                 break;
             }

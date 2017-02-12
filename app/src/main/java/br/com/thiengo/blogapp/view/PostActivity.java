@@ -53,7 +53,6 @@ public class PostActivity extends AppCompatActivity
         outState.putParcelableArrayList(
                 Comentario.COMENTARIOS_KEY,
                 presenter.getComentarios() );
-
         super.onSaveInstanceState(outState);
     }
 

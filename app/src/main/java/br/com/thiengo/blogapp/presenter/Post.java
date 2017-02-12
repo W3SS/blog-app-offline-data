@@ -2,20 +2,21 @@ package br.com.thiengo.blogapp.presenter;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.thiengo.blogapp.R;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 
-public class Post implements Parcelable {
+public class Post extends RealmObject implements Parcelable {
     public static final String KEY = "post_key";
     public static final String POSTS_KEY = "posts";
     public static final String ID_KEY = "id";
     public static final String EH_FAVORITO_KEY = "eh-favorito";
     public static final int POST_CODE = 668;
 
+    @PrimaryKey
     private long id;
     private String titulo;
     private String uriImagem;
@@ -23,7 +24,6 @@ public class Post implements Parcelable {
     private String sumario;
     private String conteudo;
     private boolean ehFavorito;
-    private List<Comentario> comentarios = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -95,19 +95,6 @@ public class Post implements Parcelable {
         return R.drawable.ic_nao_favorito_big_icone;
     }
 
-    public List<Comentario> getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(List<Comentario> comentarios) {
-        if( comentarios != null && comentarios.size() > 0 ){
-            this.comentarios = comentarios;
-        }
-    }
-
-
-    public Post() {
-    }
 
     @Override
     public int describeContents() {
@@ -123,8 +110,9 @@ public class Post implements Parcelable {
         dest.writeString(this.sumario);
         dest.writeString(this.conteudo);
         dest.writeByte(this.ehFavorito ? (byte) 1 : (byte) 0);
-        dest.writeTypedList(this.comentarios);
     }
+
+    public Post() {}
 
     protected Post(Parcel in) {
         this.id = in.readLong();
@@ -134,7 +122,6 @@ public class Post implements Parcelable {
         this.sumario = in.readString();
         this.conteudo = in.readString();
         this.ehFavorito = in.readByte() != 0;
-        this.comentarios = in.createTypedArrayList(Comentario.CREATOR);
     }
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {
@@ -148,4 +135,16 @@ public class Post implements Parcelable {
             return new Post[size];
         }
     };
+
+    public Post gerarCopia(){
+        Post p = new Post();
+        p.setId( id );
+        p.setTitulo( titulo );
+        p.setUriImagem( uriImagem );
+        p.setUriImagemBanner( uriImagemBanner );
+        p.setSumario( sumario );
+        p.setConteudo( conteudo );
+        p.setEhFavorito( ehFavorito );
+        return p;
+    }
 }
